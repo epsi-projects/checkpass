@@ -34,9 +34,13 @@ withDefaults(defineProps<{
             <q-card-section>
                 <div
                     class="justify-end row text-weight-thin text-italic"
-                >quantum: 10 jours computer: 100 jours</div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos corrupti
-                commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto suscipit iste
-                eveniet doloribus ullam aliquid.
+                >quantum: 10 jours computer: 100 jours</div>
+                <ul>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur labore eos, eaque aliquam necessitatibus.</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur labore eos, eaque aliquam necessitatibus.</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur labore eos, eaque aliquam necessitatibus.</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur labore eos, eaque aliquam necessitatibus.</li>
+                </ul>
             </q-card-section>
         </q-card>
     </q-expansion-item>

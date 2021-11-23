@@ -16,7 +16,7 @@ const password = ref('')
 
   <q-tab-panels v-model="tab" animated class>
     <q-tab-panel name="test" class="flex justify-center items-center">
-      <q-card class="my-card" style="max-width: 500px">
+      <q-card class="my-card" style="max-width: 800px">
         <q-card-section class="column">
           <h1 class="text-h5">Tester la robustesse de votre mot de passe</h1>
           <div class="row justify-between items-center">
@@ -24,7 +24,7 @@ const password = ref('')
             <q-btn size="md" class="q-ml-md" color="primary" label="Tester" />
           </div>
           <div class="q-mt-md">
-            <ResultPassword />
+            <ResultPassword :items="[]" />
           </div>
         </q-card-section>
       </q-card>
