@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import dayjs from 'dayjs'
+import 'dayjs/locale/fr'
+import duration from 'dayjs/plugin/duration'
+import relativeTime from 'dayjs/plugin/relativeTime';
 
-withDefaults(defineProps<{
+dayjs.extend(relativeTime);
+dayjs.extend(duration)
+
+const props = withDefaults(defineProps<{
     items: Array<{
-        id: string,
-        time: {
-            quantum: number,
-            computer: number
-        },
-        advices: Array<{
-            id: string,
-            title: string,
-            description: string
-        }>
+        quantum: number,
+        computer: number
+        advices: Array<string>
     }>
     expanded?: boolean,
 }>(), {
@@ -22,7 +22,7 @@ withDefaults(defineProps<{
 </script>
 
 <template>
-    <q-expansion-item v-model="expanded" :expand-icon-toggle="false">
+    <q-expansion-item v-for="item in items" v-model="expanded" :expand-icon-toggle="false">
         <template v-slot:header>
             <q-item-section class="text-bold">*******</q-item-section>
 
@@ -32,20 +32,22 @@ withDefaults(defineProps<{
         </template>
         <q-card>
             <q-card-section>
-                <div
-                    class="justify-end row text-weight-thin text-italic"
-                >quantum: 10 jours computer: 100 jours</div>
+                <div class="justify-end row text-weight-thin text-italic">
+                    <div style="margin-right:10px">
+                        <strong>quantum</strong>
+                        : {{ dayjs.duration({ minutes: item.quantum }).locale("fr").humanize() }}
+                        <q-tooltip>{{ item.quantum }} Minutes</q-tooltip>
+                    </div>
+                    <div>
+                        <strong>computer</strong>
+                        : {{ dayjs.duration({ minutes: item.computer }).locale("fr").humanize() }}
+                        <q-tooltip>{{ item.computer }} Minutes</q-tooltip>
+                    </div>
+                </div>
                 <ul>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur labore eos, eaque aliquam necessitatibus.</li>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur labore eos, eaque aliquam necessitatibus.</li>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur labore eos, eaque aliquam necessitatibus.</li>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur labore eos, eaque aliquam necessitatibus.</li>
+                    <li v-for="advice in item.advices">{{ advice }}</li>
                 </ul>
             </q-card-section>
         </q-card>
     </q-expansion-item>
 </template>
-
-
-<style>
-</style>

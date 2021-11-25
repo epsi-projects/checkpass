@@ -1,9 +1,20 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import ResultPassword from './components/resultPassword.vue';
+import { useFetch } from '@vueuse/core'
 
 const tab = ref('test')
-const password = ref('')
+const password = ref('monmdp')
+const passwordTest = ref({ isFetching: null, error: null, data: null })
+
+const testPassword = () => {
+  return useFetch(`${import.meta.env.VITE_API_URL}/password`).post({ password: password.value }).json()
+}
+const tryTestPassword = () => {
+  if (password.value.length < 1) return;
+  passwordTest.value = testPassword()
+}
+const isExpended = ref(true)
 </script>
 
 <template>
@@ -21,10 +32,20 @@ const password = ref('')
           <h1 class="text-h5">Tester la robustesse de votre mot de passe</h1>
           <div class="row justify-between items-center">
             <q-input outlined v-model="password" label="Your password" />
-            <q-btn size="md" class="q-ml-md" color="primary" label="Tester" />
+            <q-btn
+              size="md"
+              class="q-ml-md"
+              color="primary"
+              label="Tester"
+              @click="tryTestPassword"
+            />
           </div>
           <div class="q-mt-md">
-            <ResultPassword :items="[]" />
+            <ResultPassword
+              v-if="passwordTest.data"
+              :items="[passwordTest.data]"
+              :expanded="isExpended"
+            />
           </div>
         </q-card-section>
       </q-card>
