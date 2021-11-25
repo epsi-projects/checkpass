@@ -8,26 +8,26 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 dayjs.extend(duration)
 
-const props = withDefaults(defineProps<{
+
+const props = defineProps<{
     items: Array<{
         quantum: number,
         computer: number
-        advices: Array<string>
+        advices: Array<string>,
+        isExpended?: boolean,
+        date: Date
     }>
-    expanded?: boolean,
-}>(), {
-    expanded: true
-})
+}>()
 
 </script>
 
 <template>
-    <q-expansion-item v-for="item in items" v-model="expanded" :expand-icon-toggle="false">
+    <q-expansion-item v-for="item in items" v-model="item.isExpended" :expand-icon-toggle="false">
         <template v-slot:header>
             <q-item-section class="text-bold">*******</q-item-section>
 
             <q-item-section side>
-                <div class="row items-center">Il y a 10 min</div>
+                <div class="row items-center">{{ dayjs().to(dayjs(item.date)) }}</div>
             </q-item-section>
         </template>
         <q-card>
